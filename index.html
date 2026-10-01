@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ôn tập từ vựng tiếng Trung</title>
+<style>
+/* ============ BASE ============ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans",Arial,sans-serif;
+  color:#3d3346;
+  background:linear-gradient(165deg,#fdf1f7 0%,#f4efff 35%,#eaf7f4 70%,#fef6ee 100%);
+  min-height:100vh;overflow-x:hidden;position:relative;
+}
+.bg-blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;z-index:0;will-change:transform;}
+.b1{width:420px;height:420px;background:#ffd3e2;top:-150px;left:-130px;animation:float1 18s ease-in-out infinite;}
+.b2{width:380px;height:380px;background:#d9cbff;top:15%;right:-160px;animation:float2 22s ease-in-out infinite;}
+.b3{width:460px;height:460px;background:#c3f2e2;bottom:-220px;left:15%;animation:float1 26s ease-in-out infinite reverse;}
+.b4{width:280px;height:280px;background:#ffe6b8;bottom:8%;right:6%;opacity:.45;animation:float2 20s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,40px) scale(1.08);}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-35px,30px) scale(1.06);}}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(#ffffffaa 1.3px,transparent 1.3px);
+  background-size:28px 28px;opacity:.7;
+}
+.wrap{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:22px 16px 60px;}
+
+/* ============ HERO ============ */
+.hero{text-align:center;padding:14px 0 18px;}
+.hero h1{
+  margin:12px 0 4px;font-size:clamp(30px,6vw,46px);letter-spacing:4px;
+  background:linear-gradient(135deg,#ff7fa3 0%,#a98bff 50%,#57c9b0 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-weight:800;text-shadow:0 2px 0 rgba(255,255,255,.6);
+}
+.hero-sub{margin:0;color:#8a7d95;font-size:14.5px;letter-spacing:.5px;}
+
+/* ============ TABS ============ */
+.tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 20px;}
+.tab{
+  border:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:700;
+  padding:11px 22px;border-radius:999px;color:#7a6b88;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 4px 14px rgba(160,140,190,.16);
+  transition:.25s;backdrop-filter:blur(8px);
+}
+.tab:hover{transform:translateY(-2px);color:#5d4d70;}
+.tab.active{
+  color:#fff;background:linear-gradient(135deg,#ff9dbb,#a98bff);
+  box-shadow:0 8px 22px rgba(169,139,255,.45);
+}
+.panel{display:none;animation:fadeUp .35s ease;}
+.panel.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+/* ============ VOCAB ============ */
+.toolbar{
+  display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,.72);backdrop-filter:blur(10px);
+  border-radius:20px;padding:14px 18px;margin-bottom:18px;
+  box-shadow:0 8px 26px rgba(180,160,210,.16);
+}
+.search{
+  flex:1;min-width:200px;border:2px solid #f0e6f7;border-radius:14px;
+  padding:10px 16px;font-size:15px;font-family:inherit;outline:none;
+  background:#fff;color:#4a3f55;transition:.2s;
+}
+.search:focus{border-color:#c9b6ff;box-shadow:0 0 0 4px rgba(201,182,255,.2);}
+.speed-control{display:flex;align-items:center;gap:10px;font-size:13.5px;color:#7a6b88;font-weight:600;}
+.speed-control input[type=range]{
+  -webkit-appearance:none;appearance:none;width:130px;height:6px;border-radius:99px;
+  background:linear-gradient(90deg,#ffb3c6,#c9b6ff);outline:none;
+}
+.speed-control input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:#fff;border:3px solid #a98bff;cursor:pointer;box-shadow:0 2px 8px rgba(169,139,255,.5);
+}
+.speed-control input[type=range]::-moz-range-thumb{
+  width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #a98bff;cursor:pointer;
+}
+#speedVal{min-width:42px;text-align:center;color:#a98bff;font-weight:800;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:15px;}
+
+/* --- FLIP CARD --- */
+.vcard{
+  perspective:1100px;height:238px;cursor:pointer;
+  -webkit-user-select:none;user-select:none;
+}
+.vcard-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .62s cubic-bezier(.4,.2,.2,1);
+}
+.vcard.flipped .vcard-inner{transform:rotateY(180deg);}
+.vcard-face{
+  position:absolute;inset:0;border-radius:20px;padding:16px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;flex-direction:column;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+  border:2px solid rgba(255,255,255,.95);
+  box-shadow:0 8px 22px rgba(180,160,210,.17);
+  overflow:hidden;
+}
+.vcard-front::after{
+  content:'';position:absolute;top:-45%;right:-45%;width:90%;height:90%;
+  background:radial-gradient(circle,rgba(255,190,215,.4),transparent 70%);
+  pointer-events:none;
+}
+.vcard-back{
+  transform:rotateY(180deg);
+  background:linear-gradient(160deg,#fff8fc,#f4f0ff);
+  overflow-y:auto;overflow-x:hidden;
+  padding:13px 14px 14px;
+}
+.vcard-back::-webkit-scrollbar{width:5px;}
+.vcard-back::-webkit-scrollbar-thumb{background:#d9c9f5;border-radius:9px;}
+
+.vcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;position:relative;z-index:1;}
+.vcard-hanzi{
+  font-size:29px;font-weight:800;letter-spacing:2px;line-height:1.2;
+  background:linear-gradient(135deg,#ff7fa3,#9b7bff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.spk{
+  flex:none;border:none;cursor:pointer;width:33px;height:33px;border-radius:50%;
+  background:linear-gradient(135deg,#ffe3ee,#e6dcff);font-size:15px;
+  display:grid;place-items:center;transition:.2s;position:relative;z-index:2;
+}
+.spk:hover{transform:scale(1.15);background:linear-gradient(135deg,#ffc9dd,#d3c1ff);}
+.vcard-pinyin{margin-top:7px;font-size:15px;font-weight:700;color:#8b7bb8;letter-spacing:.4px;position:relative;z-index:1;}
+.vcard-mean{margin-top:5px;font-size:13.5px;color:#8d8298;line-height:1.45;position:relative;z-index:1;flex:1;}
+.vcard-hint{
+  font-size:11.5px;color:#c0aee0;font-weight:700;letter-spacing:.3px;
+  display:flex;align-items:center;gap:5px;margin-top:6px;position:relative;z-index:1;
+}
+.vcard-hint .dot{
+  width:6px;height:6px;border-radius:50%;background:#ffb3c6;
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(.8);}50%{opacity:1;transform:scale(1.25);}}
+
+.vcard-back-title{
+  font-size:11.5px;font-weight:800;color:#a98bff;letter-spacing:1.4px;
+  margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;
+}
+.vcard-back-title .back-hint{color:#c9b9e6;font-size:10.5px;letter-spacing:.3px;}
+.ex-item{margin-bottom:9px;padding-left:9px;border-left:3px solid #ffd6e5;}
+.ex-item:last-child{margin-bottom:0;}
+.ex-cn{
+  font-size:13px;font-weight:700;color:#4a3f55;line-height:1.5;
+  cursor:pointer;transition:.15s;
+}
+.ex-cn:hover{color:#a98bff;}
+.ex-vn{font-size:11.5px;color:#9b90a8;line-height:1.45;margin-top:2px;font-style:italic;}
+
+/* ============ WRITING ============ */
+.write-panel-container{display:flex;flex-direction:column;gap:20px;max-width:900px;margin:0 auto;}
+.word-select-card{width:100%;}
+.word-select-card select#charSelect{max-width:500px;}
+.write-wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;align-items:flex-start;}
+.write-stage{
+  position:relative;width:min(420px,88vw);aspect-ratio:1/1;flex:none;
+  border-radius:26px;overflow:hidden;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 12px 36px rgba(180,160,210,.22),inset 0 0 0 2px rgba(255,255,255,.9);
+  touch-action:none;
+}
+.grid-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.trace-char{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-size:min(300px,64vw);font-weight:400;color:#f3e9f7;
+  user-select:none;pointer-events:none;line-height:1;font-family:"KaiTi","STKaiti","Kaiti SC",serif;
+  transition:opacity .25s;
+}
+#writeCanvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;}
+.write-side{flex:1;min-width:260px;max-width:390px;display:flex;flex-direction:column;gap:16px;}
+.wcard{
+  background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+  border-radius:22px;padding:18px;box-shadow:0 8px 26px rgba(180,160,210,.16);
+}
+.wcard h3{margin:0 0 12px;font-size:14px;color:#7a6b88;letter-spacing:1px;font-weight:800;}
+select#charSelect{
+  width:100%;padding:11px 14px;border-radius:14px;border:2px solid #f0e6f7;
+  font-size:16px;font-family:inherit;background:#fff;color:#4a3f55;outline:none;cursor:pointer;
+}
+select#charSelect:focus{border-color:#c9b6ff;}
+.char-chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;}
+.char-chip{
+  border:none;cursor:pointer;width:56px;height:56px;border-radius:15px;
+  font-size:29px;line-height:1;color:#7a6b88;
+  font-family:"KaiTi","STKaiti","Kaiti SC",serif;
+  background:#fff;box-shadow:0 4px 14px rgba(180,160,210,.2);
+  transition:.22s cubic-bezier(.34,1.56,.64,1);
+}
+.char-chip:hover{transform:translateY(-3px);color:#5d4d70;}
+.char-chip.active{
+  color:#fff;background:linear-gradient(135deg,#ff9dbb,#a98bff);
+  box-shadow:0 7px 20px rgba(169,139,255,.45);transform:translateY(-2px) scale(1.05);
+}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.btn{
+  border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;
+  padding:10px 18px;border-radius:14px;transition:.2s;color:#fff;
+  background:linear-gradient(135deg,#a98bff,#8a6bff);
+  box-shadow:0 5px 16px rgba(169,139,255,.35);
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06);}
+.btn:active{transform:scale(.96);}
+.btn.ghost{background:rgba(255,255,255,.92);color:#8a7d95;box-shadow:0 4px 14px rgba(180,160,210,.18);}
+.btn.ghost:hover{color:#5d4d70;}
+.btn.pink{background:linear-gradient(135deg,#ff9dbb,#ff7fa3);box-shadow:0 5px 16px rgba(255,127,163,.35);}
+.btn.mint{background:linear-gradient(135deg,#7fdcc0,#4fc3a1);box-shadow:0 5px 16px rgba(79,195,161,.35);}
+.color-row{display:flex;gap:9px;align-items:center;flex-wrap:wrap;}
+.swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.13);transition:.2s;}
+.swatch:hover{transform:scale(1.12);}
+.swatch.active{box-shadow:0 0 0 3px #a98bff;transform:scale(1.12);}
+
+/* ============ GAME ============ */
+.game-shell{max-width:780px;margin:0 auto;}
+.hud{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.hud-chip{
+  background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+  padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;color:#6f6180;
+  box-shadow:0 5px 16px rgba(180,160,210,.16);display:flex;align-items:center;gap:6px;
+}
+.hud-chip b{color:#a98bff;font-size:15px;}
+#hudLives{letter-spacing:1px;font-size:15px;}
+.playfield{
+  position:relative;width:100%;height:min(60vh,500px);min-height:340px;
+  border-radius:26px;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.92),transparent 62%),
+    linear-gradient(180deg,#f7f1ff 0%,#fdf1f7 55%,#eef9f5 100%);
+  box-shadow:0 16px 44px rgba(180,160,210,.25),inset 0 0 0 3px rgba(255,255,255,.85);
+}
+.playfield::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(#ffffffcc 1.2px,transparent 1.2px);
+  background-size:34px 34px;opacity:.55;
+}
+.ground{
+  position:absolute;left:0;right:0;bottom:0;height:8px;
+  background:linear-gradient(90deg,#ffb3c6,#c9b6ff,#a8e6cf);
+  opacity:.75;border-radius:0 0 26px 26px;
+}
+.falling-word{
+  position:absolute;
+  padding:8px 18px 7px;border-radius:20px;
+  background:linear-gradient(135deg,#ffffff,#fff2f8);
+  border:2.5px solid #ffc2d6;
+  display:flex;flex-direction:column;align-items:center;gap:1px;
+  white-space:nowrap;user-select:none;
+  box-shadow:0 6px 18px rgba(255,150,190,.35),inset 0 -3px 0 rgba(255,190,215,.35);
+  will-change:top;
+}
+.fw-hanzi{
+  font-size:clamp(20px,5vw,28px);font-weight:800;letter-spacing:2px;
+  color:#4a3a55;line-height:1.15;
+}
+.fw-pinyin{
+  font-size:clamp(11px,2.4vw,13px);font-weight:700;
+  color:#a08fc4;letter-spacing:.3px;line-height:1.1;
+}
+.rocket{
+  position:absolute;font-size:30px;pointer-events:none;z-index:6;
+  transform:translate(-50%,-50%) rotate(-45deg);
+  filter:drop-shadow(0 0 10px rgba(255,209,102,.9));
+}
+@keyframes boom{
+  0%{transform:translate(-50%,-50%) scale(.3) rotate(0deg);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(2.8) rotate(35deg);opacity:0;}
+}
+.explosion{
+  position:absolute;font-size:46px;pointer-events:none;z-index:7;
+  transform:translate(-50%,-50%);animation:boom .55s ease-out forwards;
+}
+@keyframes floatUp{
+  0%{transform:translate(-50%,-50%) scale(.6);opacity:0;}
+  25%{transform:translate(-50%,-90%) scale(1.15);opacity:1;}
+  100%{transform:translate(-50%,-190%) scale(1);opacity:0;}
+}
+.plus-score{
+  position:absolute;z-index:8;pointer-events:none;font-weight:900;font-size:20px;
+  color:#ff7fa3;text-shadow:0 2px 8px rgba(255,255,255,.95),0 0 14px rgba(255,127,163,.6);
+  animation:floatUp .95s ease-out forwards;
+}
+@keyframes damageFlash{
+  0%,100%{box-shadow:0 16px 44px rgba(180,160,210,.25),inset 0 0 0 3px rgba(255,255,255,.85);}
+  50%{box-shadow:0 0 0 6px rgba(255,120,150,.55),inset 0 0 60px rgba(255,120,150,.35);}
+}
+.playfield.hurt{animation:damageFlash .5s ease;}
+.input-row{display:flex;gap:10px;margin-top:14px;}
+#pinyinInput{
+  flex:1;border:3px solid #f0e6f7;border-radius:18px;padding:14px 20px;
+  font-size:18px;font-family:inherit;outline:none;background:#fff;color:#4a3f55;
+  letter-spacing:1px;transition:.2s;min-width:0;font-weight:600;
+}
+#pinyinInput:focus{border-color:#c9b6ff;box-shadow:0 0 0 5px rgba(201,182,255,.18);}
+#pinyinInput.bad{
+  border-color:#ff7fa3;box-shadow:0 0 0 5px rgba(255,127,163,.2);animation:shake .4s;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-8px);}40%{transform:translateX(8px);}
+  60%{transform:translateX(-5px);}80%{transform:translateX(5px);}
+}
+.btn-fire{
+  border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:17px;
+  padding:0 26px;border-radius:18px;color:#fff;white-space:nowrap;
+  background:linear-gradient(135deg,#ff9dbb,#a98bff);
+  box-shadow:0 8px 22px rgba(169,139,255,.4);transition:.2s;
+}
+.btn-fire:hover{transform:translateY(-2px);filter:brightness(1.07);}
+.btn-fire:active{transform:scale(.96);}
+.overlay{
+  position:absolute;inset:0;z-index:20;display:grid;place-items:center;
+  background:rgba(250,245,255,.85);backdrop-filter:blur(8px);
+  opacity:0;pointer-events:none;transition:opacity .3s;padding:20px;
+}
+.overlay.show{opacity:1;pointer-events:auto;}
+.overlay-card{
+  text-align:center;max-width:410px;background:#fff;border-radius:26px;padding:28px 26px;
+  box-shadow:0 20px 50px rgba(169,139,255,.32);
+  transform:scale(.9);transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.overlay.show .overlay-card{transform:scale(1);}
+.overlay-card h2{margin:0 0 10px;font-size:24px;color:#5d4d70;letter-spacing:1px;}
+.overlay-card p{margin:0 0 20px;color:#8d8298;font-size:15px;line-height:1.7;}
+.overlay-card p b{color:#a98bff;}
+.btn-primary{
+  border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:16px;
+  padding:13px 36px;border-radius:16px;color:#fff;
+  background:linear-gradient(135deg,#ff9dbb,#a98bff);
+  box-shadow:0 10px 26px rgba(169,139,255,.42);transition:.2s;
+}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.07);}
+.btn-primary:active{transform:scale(.96);}
+
+/* ============ EXERCISES ============ */
+.ex-panel{max-width:860px;margin:0 auto;}
+.ex-intro{
+  background:rgba(255,255,255,.78);backdrop-filter:blur(10px);
+  border-radius:20px;padding:16px 20px;margin-bottom:18px;
+  box-shadow:0 8px 26px rgba(180,160,210,.16);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.ex-intro h2{margin:0;font-size:19px;color:#5d4d70;letter-spacing:.6px;}
+.ex-intro p{margin:4px 0 0;font-size:13px;color:#8d8298;}
+.ex-score{
+  background:linear-gradient(135deg,#fff0f6,#f3edff);
+  border-radius:14px;padding:9px 18px;font-weight:800;color:#a98bff;font-size:15px;
+  white-space:nowrap;box-shadow:0 4px 12px rgba(169,139,255,.2);
+}
+.word-bank{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
+  border-radius:20px;padding:14px 18px;margin-bottom:18px;
+  box-shadow:0 8px 26px rgba(180,160,210,.14);
+}
+.word-bank h3{margin:0 0 10px;font-size:13px;color:#7a6b88;letter-spacing:1px;font-weight:800;}
+.bank-chips{display:flex;flex-wrap:wrap;gap:9px;}
+.bank-chip{
+  padding:7px 15px;border-radius:999px;font-size:15px;font-weight:700;
+  background:#fff;color:#7a6b88;border:2px solid #f0e6f7;
+  box-shadow:0 3px 10px rgba(180,160,210,.14);
+  transition:.2s;cursor:default;user-select:none;
+}
+.bank-chip:hover{border-color:#d9c9f5;color:#5d4d70;}
+.fill-list{display:flex;flex-direction:column;gap:14px;}
+.fill-item{
+  background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+  border-radius:18px;padding:16px 18px;
+  box-shadow:0 6px 20px rgba(180,160,210,.14);
+  display:flex;gap:12px;align-items:flex-start;
+  border-left:5px solid #ffd6e5;
+  transition:.3s;
+}
+.fill-item.correct{border-left-color:#7fdcc0;background:rgba(240,255,250,.9);}
+.fill-item.wrong{border-left-color:#ff7fa3;background:rgba(255,244,248,.9);}
+.fill-num{
+  flex:none;width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,#ffb3c6,#c9b6ff);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:13px;
+  box-shadow:0 3px 10px rgba(201,182,255,.4);
+}
+.fill-body{flex:1;line-height:2.4;font-size:15.5px;color:#4a3f55;}
+.fill-body select{
+  font-family:inherit;font-size:15px;font-weight:700;
+  padding:5px 10px;border-radius:11px;border:2px solid #e6d8ff;
+  background:#fff;color:#6f5f9c;outline:none;cursor:pointer;
+  min-width:120px;transition:.2s;
+}
+.fill-body select:focus{border-color:#a98bff;box-shadow:0 0 0 3px rgba(169,139,255,.2);}
+.fill-body select.ok{border-color:#4fc3a1;color:#2e8b6f;background:#f0fff9;}
+.fill-body select.no{border-color:#ff7fa3;color:#c94a72;background:#fff5f8;}
+.ex-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;justify-content:center;}
+.ex-result{
+  margin-top:16px;text-align:center;font-weight:800;font-size:17px;
+  min-height:26px;color:#a98bff;letter-spacing:.5px;
+}
+.mc-list{display:flex;flex-direction:column;gap:14px;}
+.mc-item{
+  background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+  border-radius:18px;padding:16px 18px;
+  box-shadow:0 6px 20px rgba(180,160,210,.14);
+  border-left:5px solid #d9cbff;transition:.3s;
+}
+.mc-item.correct{border-left-color:#7fdcc0;background:rgba(240,255,250,.9);}
+.mc-item.wrong{border-left-color:#ff7fa3;background:rgba(255,244,248,.9);}
+.mc-q{font-size:15.5px;font-weight:700;color:#4a3f55;line-height:1.9;margin-bottom:10px;}
+.mc-q .blank{
+  display:inline-block;min-width:64px;border-bottom:2.5px dashed #a98bff;
+  color:#a98bff;text-align:center;margin:0 4px;font-weight:900;
+}
+.mc-q .py{color:#a08fc4;font-weight:600;font-size:13.5px;}
+.mc-options{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.mc-option{
+  border:2px solid #f0e6f7;background:#fff;border-radius:13px;
+  padding:10px 13px;font-family:inherit;font-size:14.5px;font-weight:700;
+  color:#6f6180;cursor:pointer;text-align:left;transition:.2s;
+}
+.mc-option:hover:not(:disabled){border-color:#c9b6ff;color:#5d4d70;transform:translateY(-1px);}
+.mc-option:disabled{cursor:default;}
+.mc-option.ok{border-color:#4fc3a1;background:#eafaf4;color:#2e8b6f;}
+.mc-option.no{border-color:#ff7fa3;background:#fff0f5;color:#c94a72;}
+.mc-option.dim{opacity:.55;}
+.mc-option .py{color:#a08fc4;font-weight:600;font-size:12.5px;}
+
+@media (max-width:600px){
+  .wrap{padding:14px 12px 50px;}
+  .toolbar{padding:12px;gap:10px;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:11px;}
+  .vcard{height:210px;}
+  .vcard-hanzi{font-size:25px;}
+  .ex-cn{font-size:12px;}
+  .ex-vn{font-size:10.8px;}
+  .playfield{height:54vh;min-height:310px;}
+  .btn-fire{padding:0 18px;font-size:16px;}
+  #pinyinInput{font-size:16px;padding:12px 15px;}
+  .write-panel-container{gap:14px;}
+  .word-select-card select#charSelect{max-width:100%;}
+  .mc-options{grid-template-columns:1fr;}
+  .fill-body{font-size:14.5px;line-height:2.2;}
+  .fill-body select{font-size:14px;min-width:100px;padding:4px 8px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+<div class="bg-blob b4"></div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Ôn tập từ vựng</h1>
+    <p class="hero-sub">Luyện nghe – viết – chơi cùng từ vựng tiếng Trung</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="vocab">📚 Từ vựng</button>
+    <button class="tab" data-tab="write">✍️ Luyện viết</button>
+    <button class="tab" data-tab="game">🚀 Trò chơi</button>
+    <button class="tab" data-tab="fill">📝 Điền từ</button>
+    <button class="tab" data-tab="mcq">🎯 Trắc nghiệm</button>
+  </nav>
+
+  <!-- ============ VOCAB ============ -->
+  <section class="panel active" id="panel-vocab">
+    <div class="toolbar">
+      <input id="searchInput" class="search" type="text" placeholder="🔍 Tìm từ (chữ Hán / pinyin / nghĩa)...">
+      <div class="speed-control">
+        <span>🐢</span>
+        <input type="range" id="speedRange" min="0.4" max="1.4" step="0.05" value="0.85">
+        <span>🐇</span>
+        <span id="speedVal">0.85x</span>
+      </div>
+    </div>
+    <div class="grid" id="vocabGrid"></div>
+  </section>
+
+  <!-- ============ WRITING ============ -->
+  <section class="panel" id="panel-write">
+    <div class="write-panel-container">
+      <div class="wcard word-select-card">
+        <h3>✍️ CHỌN TỪ ĐỂ LUYỆN VIẾT</h3>
+        <select id="charSelect"></select>
+        <div class="char-chips" id="charChips"></div>
+        <div class="row">
+          <button class="btn pink" id="btnSpeakWrite">🔊 Nghe đọc</button>
+          <button class="btn ghost" id="btnRandom">🎲 Ngẫu nhiên</button>
+        </div>
+      </div>
+      <div class="write-wrap">
+        <div class="write-stage" id="writeStage">
+          <svg class="grid-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <rect x="0.6" y="0.6" width="98.8" height="98.8" fill="none" stroke="#ffb3c6" stroke-width="1.2"/>
+            <line x1="50" y1="0.6" x2="50" y2="99.4" stroke="#ffd0de" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <line x1="0.6" y1="50" x2="99.4" y2="50" stroke="#ffd0de" stroke-width="0.8" stroke-dasharray="3 3"/>
+            <line x1="0.6" y1="0.6" x2="99.4" y2="99.4" stroke="#ffe8f0" stroke-width="0.6" stroke-dasharray="3 3"/>
+            <line x1="99.4" y1="0.6" x2="0.6" y2="99.4" stroke="#ffe8f0" stroke-width="0.6" stroke-dasharray="3 3"/>
+          </svg>
+          <div class="trace-char" id="traceChar">星</div>
+          <canvas id="writeCanvas"></canvas>
+        </div>
+        <div class="write-side">
+          <div class="wcard">
+            <h3>🖌️ BÚT VẼ</h3>
+            <div class="color-row" id="colorRow">
+              <div class="swatch active" data-color="#3d3346" style="background:#3d3346"></div>
+              <div class="swatch" data-color="#ff7fa3" style="background:#ff7fa3"></div>
+              <div class="swatch" data-color="#a98bff" style="background:#a98bff"></div>
+              <div class="swatch" data-color="#4fc3a1" style="background:#4fc3a1"></div>
+              <div class="swatch" data-color="#ffa726" style="background:#ffa726"></div>
+            </div>
+            <div class="row" style="margin-top:14px;">
+              <button class="btn mint" id="btnUndo">↩️ Xóa nét vừa viết</button>
+              <button class="btn ghost" id="btnClear">🧹 Xóa hết</button>
+              <button class="btn ghost" id="btnTrace">👁️ Ẩn/Hiện mẫu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section class="panel" id="panel-game">
+    <div class="game-shell">
+      <div class="hud">
+        <div class="hud-chip">🎯 Màn <b id="hudLevel">1</b>/14</div>
+        <div class="hud-chip" id="hudLives">❤️❤️❤️</div>
+        <div class="hud-chip">⭐ <b id="hudScore">0</b></div>
+        <div class="hud-chip">✅ <b id="hudDestroyed">0</b>/<b id="hudTarget">5</b></div>
+      </div>
+      <div class="playfield" id="playfield">
+        <div class="ground"></div>
+        <div class="overlay show" id="overlay">
+          <div class="overlay-card">
+            <h2 id="ovTitle">🚀 Sẵn sàng chưa?</h2>
+            <p id="ovText">Từ tiếng Trung sẽ rơi xuống.<br>Gõ <b>pinyin không dấu</b> rồi nhấn <b>Enter</b> để bắn hạ!</p>
+            <button id="ovBtn" class="btn-primary">Bắt đầu ▶</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <input id="pinyinInput" type="text" placeholder="Gõ pinyin... vd: xingqi" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <button id="fireBtn" class="btn-fire">🚀 Bắn</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILL IN THE BLANKS ============ -->
+  <section class="panel" id="panel-fill">
+    <div class="ex-panel">
+      <div class="ex-intro">
+        <div>
+          <h2>📝 Điền từ vào chỗ trống</h2>
+          <p>Chọn từ thích hợp trong bảng từ để điền vào mỗi chỗ trống.</p>
+        </div>
+        <div class="ex-score">Điểm: <span id="fillScore">0</span>/<span id="fillTotal">12</span></div>
+      </div>
+      <div class="word-bank">
+        <h3>📦 BẢNG TỪ (WORD BANK)</h3>
+        <div class="bank-chips" id="fillBank"></div>
+      </div>
+      <div class="fill-list" id="fillList"></div>
+      <div class="ex-actions">
+        <button class="btn mint" id="fillCheck">✅ Kiểm tra đáp án</button>
+        <button class="btn ghost" id="fillReset">🔄 Làm lại</button>
+      </div>
+      <div class="ex-result" id="fillResult"></div>
+    </div>
+  </section>
+
+  <!-- ============ MULTIPLE CHOICE ============ -->
+  <section class="panel" id="panel-mcq">
+    <div class="ex-panel">
+      <div class="ex-intro">
+        <div>
+          <h2>🎯 Trắc nghiệm</h2>
+          <p>Chọn đáp án đúng nhất cho mỗi câu hỏi.</p>
+        </div>
+        <div class="ex-score">Điểm: <span id="mcqScore">0</span>/<span id="mcqTotal">10</span></div>
+      </div>
+      <div class="mc-list" id="mcqList"></div>
+      <div class="ex-actions">
+        <button class="btn ghost" id="mcqReset">🔄 Làm lại</button>
+      </div>
+      <div class="ex-result" id="mcqResult"></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =========================================================
+   1. DỮ LIỆU TỪ VỰNG — ĐÃ BỎ CHỮ 几
+   ========================================================= */
+const WORDS = [
+  {h:'昨天', p:'zuótiān', m:'hôm qua', ex:[
+    ['昨天我去汉语中心学汉语。','Hôm qua tôi đến trung tâm tiếng Trung học tiếng Trung.'],
+    ['昨天星期几？','Hôm qua là thứ mấy?'],
+    ['昨天我去超市买东西。','Hôm qua tôi đi siêu thị mua đồ.']
+  ]},
+  {h:'今天', p:'jīntiān', m:'hôm nay', ex:[
+    ['今天星期几？','Hôm nay là thứ mấy?'],
+    ['今天我去商店买东西。','Hôm nay tôi đi cửa hàng mua đồ.'],
+    ['今天几号？','Hôm nay là ngày mấy?']
+  ]},
+  {h:'明天', p:'míngtiān', m:'ngày mai', ex:[
+    ['明天他去购物中心买东西。','Ngày mai anh ấy đi trung tâm thương mại mua đồ.'],
+    ['明天星期几？','Ngày mai là thứ mấy?'],
+    ['明天我去邮局寄信。','Ngày mai tôi đi bưu điện gửi thư.']
+  ]},
+  {h:'天', p:'tiān', m:'ngày', ex:[
+    ['今天天气很好。','Hôm nay thời tiết rất đẹp.'],
+    ['明天是星期天。','Ngày mai là chủ nhật.']
+  ]},
+  {h:'星期', p:'xīngqī', m:'tuần lễ', ex:[
+    ['一个星期有七天。','Một tuần có bảy ngày.'],
+    ['今天星期几？','Hôm nay là thứ mấy?'],
+    ['星期天我不去学校。','Chủ nhật tôi không đến trường.']
+  ]},
+  {h:'星期一', p:'xīngqīyī', m:'thứ hai', ex:[
+    ['星期一我去学校。','Thứ hai tôi đến trường.'],
+    ['今天星期一。','Hôm nay là thứ hai.']
+  ]},
+  {h:'星期二', p:'xīngqī\'èr', m:'thứ ba', ex:[
+    ['星期二我有汉语课。','Thứ ba tôi có tiết tiếng Trung.'],
+    ['明天星期二。','Ngày mai là thứ ba.']
+  ]},
+  {h:'星期三', p:'xīngqīsān', m:'thứ tư', ex:[
+    ['星期三我去邮局寄信。','Thứ tư tôi đi bưu điện gửi thư.'],
+    ['今天星期三。','Hôm nay là thứ tư.']
+  ]},
+  {h:'星期四', p:'xīngqīsì', m:'thứ năm', ex:[
+    ['星期四我去银行取钱。','Thứ năm tôi đi ngân hàng rút tiền.'],
+    ['明天星期四。','Ngày mai là thứ năm.']
+  ]},
+  {h:'星期五', p:'xīngqīwǔ', m:'thứ sáu', ex:[
+    ['星期五我去超市买东西。','Thứ sáu tôi đi siêu thị mua đồ.'],
+    ['今天星期五。','Hôm nay là thứ sáu.']
+  ]},
+  {h:'星期六', p:'xīngqīliù', m:'thứ bảy', ex:[
+    ['星期六我不去学校。','Thứ bảy tôi không đến trường.'],
+    ['明天星期六。','Ngày mai là thứ bảy.']
+  ]},
+  {h:'星期天', p:'xīngqītiān', m:'chủ nhật', ex:[
+    ['星期天我去商店买东西。','Chủ nhật tôi đi cửa hàng mua đồ.'],
+    ['今天星期天。','Hôm nay là chủ nhật.']
+  ]},
+  {h:'星期日', p:'xīngqīrì', m:'chủ nhật', ex:[
+    ['星期日我不上课。','Chủ nhật tôi không học.'],
+    ['星期日我在家。','Chủ nhật tôi ở nhà.']
+  ]},
+  {h:'一', p:'yī', m:'số một', ex:[
+    ['星期一我去学校。','Thứ hai tôi đến trường.'],
+    ['我有一个中国朋友。','Tôi có một người bạn Trung Quốc.']
+  ]},
+  {h:'二', p:'èr', m:'số hai', ex:[
+    ['星期二我有汉语课。','Thứ ba tôi có tiết tiếng Trung.'],
+    ['我有二十块钱。','Tôi có hai mươi tệ.']
+  ]},
+  {h:'三', p:'sān', m:'số ba', ex:[
+    ['星期三我去邮局。','Thứ tư tôi đi bưu điện.'],
+    ['我有三个朋友。','Tôi có ba người bạn.']
+  ]},
+  {h:'四', p:'sì', m:'số bốn', ex:[
+    ['星期四我去银行。','Thứ năm tôi đi ngân hàng.'],
+    ['我家有四口人。','Nhà tôi có bốn người.']
+  ]},
+  {h:'五', p:'wǔ', m:'số năm', ex:[
+    ['星期五我去超市。','Thứ sáu tôi đi siêu thị.'],
+    ['他五岁了。','Nó năm tuổi rồi.']
+  ]},
+  {h:'六', p:'liù', m:'số sáu', ex:[
+    ['星期六我不去学校。','Thứ bảy tôi không đến trường.'],
+    ['一个星期有七天，不是六天。','Một tuần có bảy ngày, không phải sáu ngày.']
+  ]},
+  {h:'七', p:'qī', m:'số bảy', ex:[
+    ['一个星期有七天。','Một tuần có bảy ngày.'],
+    ['我七点去学校。','Tôi đến trường lúc bảy giờ.']
+  ]},
+  {h:'九', p:'jiǔ', m:'số chín', ex:[
+    ['我九点上课。','Tôi học lúc chín giờ.'],
+    ['他有九块钱。','Anh ấy có chín tệ.']
+  ]},
+  {h:'我', p:'wǒ', m:'tôi', ex:[
+    ['我是学生。','Tôi là học sinh.'],
+    ['我去学校学汉语。','Tôi đến trường học tiếng Trung.'],
+    ['我昨天去汉语中心了。','Hôm qua tôi đã đến trung tâm tiếng Trung.']
+  ]},
+  {h:'哪儿', p:'nǎr', m:'ở đâu', ex:[
+    ['你去哪儿？','Bạn đi đâu?'],
+    ['你去哪儿买东西？','Bạn đi đâu mua đồ?'],
+    ['学校在哪儿？','Trường học ở đâu?']
+  ]},
+  {h:'那儿', p:'nàr', m:'ở đó', ex:[
+    ['那儿是银行。','Đó là ngân hàng.'],
+    ['我去那儿买东西。','Tôi đến đó mua đồ.']
+  ]},
+  {h:'学', p:'xué', m:'học', ex:[
+    ['我学汉语。','Tôi học tiếng Trung.'],
+    ['你学英语吗？','Bạn học tiếng Anh không?'],
+    ['我不学汉语。','Tôi không học tiếng Trung.']
+  ]},
+  {h:'去', p:'qù', m:'đi', ex:[
+    ['我去超市买东西。','Tôi đi siêu thị mua đồ.'],
+    ['你去哪儿？','Bạn đi đâu?'],
+    ['明天他去购物中心买东西。','Ngày mai anh ấy đi trung tâm thương mại mua đồ.']
+  ]},
+  {h:'回', p:'huí', m:'về', ex:[
+    ['我回学校。','Tôi về trường.'],
+    ['他回家了吗？','Anh ấy về nhà chưa?'],
+    ['我要回中国。','Tôi muốn về Trung Quốc.']
+  ]},
+  {h:'寄', p:'jì', m:'gửi', ex:[
+    ['我去邮局寄信。','Tôi đi bưu điện gửi thư.'],
+    ['他给朋友寄了一封信。','Anh ấy đã gửi cho bạn một lá thư.']
+  ]},
+  {h:'取', p:'qǔ', m:'lấy, rút', ex:[
+    ['我去银行取钱。','Tôi đi ngân hàng rút tiền.'],
+    ['你去哪儿取钱？','Bạn đi đâu rút tiền?']
+  ]},
+  {h:'见', p:'jiàn', m:'gặp', ex:[
+    ['明天见！','Ngày mai gặp!'],
+    ['很高兴见到你。','Rất vui được gặp bạn.']
+  ]},
+  {h:'买', p:'mǎi', m:'mua', ex:[
+    ['我去超市买东西。','Tôi đi siêu thị mua đồ.'],
+    ['你买什么？','Bạn mua gì?'],
+    ['今天我去商店买了很多东西。','Hôm nay tôi đi cửa hàng mua rất nhiều đồ.']
+  ]},
+  {h:'学校', p:'xuéxiào', m:'trường học', ex:[
+    ['我去学校学汉语。','Tôi đến trường học tiếng Trung.'],
+    ['学校在哪儿？','Trường học ở đâu?'],
+    ['星期天我不去学校。','Chủ nhật tôi không đến trường.']
+  ]},
+  {h:'邮局', p:'yóujú', m:'bưu điện', ex:[
+    ['我去邮局寄信。','Tôi đi bưu điện gửi thư.'],
+    ['邮局在银行旁边。','Bưu điện ở cạnh ngân hàng.']
+  ]},
+  {h:'银行', p:'yínháng', m:'ngân hàng', ex:[
+    ['我去银行取钱。','Tôi đi ngân hàng rút tiền.'],
+    ['银行在邮局对面。','Ngân hàng ở đối diện bưu điện.']
+  ]},
+  {h:'超市', p:'chāoshì', m:'siêu thị', ex:[
+    ['我去超市买东西。','Tôi đi siêu thị mua đồ.'],
+    ['超市里东西很多。','Trong siêu thị có rất nhiều đồ.']
+  ]},
+  {h:'商店', p:'shāngdiàn', m:'cửa hàng', ex:[
+    ['今天我去商店买东西。','Hôm nay tôi đi cửa hàng mua đồ.'],
+    ['这家商店的东西很便宜。','Đồ ở cửa hàng này rất rẻ.']
+  ]},
+  {h:'汉语中心', p:'Hànyǔ zhōngxīn', m:'trung tâm tiếng Trung', ex:[
+    ['昨天我去汉语中心学汉语。','Hôm qua tôi đến trung tâm tiếng Trung học tiếng Trung.'],
+    ['汉语中心在哪儿？','Trung tâm tiếng Trung ở đâu?']
+  ]},
+  {h:'购物中心', p:'gòuwù zhōngxīn', m:'trung tâm thương mại', ex:[
+    ['明天他去购物中心买东西。','Ngày mai anh ấy đi trung tâm thương mại mua đồ.'],
+    ['购物中心很大。','Trung tâm thương mại rất lớn.']
+  ]},
+  {h:'信', p:'xìn', m:'thư', ex:[
+    ['我去邮局寄信。','Tôi đi bưu điện gửi thư.'],
+    ['这是一封给朋友的信。','Đây là một lá thư gửi cho bạn.']
+  ]},
+  {h:'钱', p:'qián', m:'tiền', ex:[
+    ['我去银行取钱。','Tôi đi ngân hàng rút tiền.'],
+    ['这个东西多少钱？','Cái này bao nhiêu tiền?']
+  ]},
+  {h:'东西', p:'dōngxi', m:'đồ, đồ đạc', ex:[
+    ['我去超市买东西。','Tôi đi siêu thị mua đồ.'],
+    ['今天我去商店买了很多东西。','Hôm nay tôi đi cửa hàng mua rất nhiều đồ.']
+  ]},
+  {h:'英语', p:'Yīngyǔ', m:'tiếng Anh', ex:[
+    ['他学英语吗？','Anh ấy học tiếng Anh không?'],
+    ['我学英语，也学汉语。','Tôi học tiếng Anh, cũng học tiếng Trung.']
+  ]},
+  {h:'日语', p:'Rìyǔ', m:'tiếng Nhật', ex:[
+    ['他学日语。','Anh ấy học tiếng Nhật.'],
+    ['日语难吗？','Tiếng Nhật khó không?']
+  ]},
+  {h:'汉语', p:'Hànyǔ', m:'tiếng Trung', ex:[
+    ['我学汉语。','Tôi học tiếng Trung.'],
+    ['你学汉语吗？','Bạn học tiếng Trung không?']
+  ]},
+  {h:'再见', p:'zàijiàn', m:'tạm biệt', ex:[
+    ['老师，再见！','Thưa thầy, tạm biệt!'],
+    ['明天见，再见！','Ngày mai gặp, tạm biệt!']
+  ]},
+  {h:'对不起', p:'duìbuqǐ', m:'xin lỗi', ex:[
+    ['对不起，我来晚了。','Xin lỗi, tôi đến muộn.'],
+    ['对不起，我不知道。','Xin lỗi, tôi không biết.']
+  ]},
+  {h:'没关系', p:'méi guānxi', m:'không sao', ex:[
+    ['没关系，我们明天再去。','Không sao, ngày mai chúng ta đi tiếp.'],
+    ['对不起！——没关系。','Xin lỗi! —— Không sao.']
+  ]},
+  {h:'对', p:'duì', m:'đúng', ex:[
+    ['对，我是学生。','Đúng, tôi là học sinh.'],
+    ['你说得对。','Bạn nói đúng.']
+  ]}
+];
+
+/* =========================================================
+   2. ÂM THANH
+   ========================================================= */
+let speechRate = 0.85;
+let zhVoice = null;
+
+function pickVoice(){
+  if(!('speechSynthesis' in window)) return;
+  const vs = window.speechSynthesis.getVoices() || [];
+  const prefer = [
+    'Ting-Ting', 'Mei-Jia', 'Sinji', 'Yaoyao', 'Google 普通话',
+    'Microsoft Huihui', 'Microsoft Yaoyao', 'Chinese', 'zh-CN', 'zh_CN'
+  ];
+  for (const key of prefer) {
+    const found = vs.find(v => v.name.includes(key));
+    if (found) { zhVoice = found; return; }
+  }
+  zhVoice = vs.find(v => /zh[-_]?CN/i.test(v.lang)) || vs.find(v => /zh/i.test(v.lang)) || null;
+}
+if('speechSynthesis' in window){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+  setTimeout(pickVoice, 400);
+  setTimeout(pickVoice, 1200);
+}
+
+function speak(text, rateOverride){
+  if(!('speechSynthesis' in window)) return;
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    u.rate = rateOverride || speechRate;
+    u.pitch = 1.15;
+    u.volume = 1;
+    if(zhVoice) u.voice = zhVoice;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ---- Web Audio SFX ---- */
+let audioCtx = null;
+function getAudio(){
+  if(!audioCtx){ try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){} }
+  if(audioCtx && audioCtx.state === 'suspended'){ try{ audioCtx.resume(); }catch(e){} }
+  return audioCtx;
+}
+function sfxShoot(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'sawtooth';
+  o.frequency.setValueAtTime(1000, t);
+  o.frequency.exponentialRampToValueAtTime(180, t + 0.18);
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.linearRampToValueAtTime(0.10, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.24);
+}
+function sfxExplode(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime, len = 0.38;
+  const buf = ac.createBuffer(1, Math.max(1, Math.floor(ac.sampleRate * len)), ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i = 0; i < d.length; i++){ d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 2.2); }
+  const src = ac.createBufferSource(); src.buffer = buf;
+  const f = ac.createBiquadFilter(); f.type = 'lowpass';
+  f.frequency.setValueAtTime(1400, t);
+  f.frequency.exponentialRampToValueAtTime(140, t + len);
+  const g = ac.createGain();
+  g.gain.setValueAtTime(0.30, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + len);
+  src.connect(f).connect(g).connect(ac.destination);
+  src.start(t); src.stop(t + len);
+}
+function sfxDing(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  [[880, 0], [1318.5, 0.07]].forEach(([freq, off]) => {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.001, t + off);
+    g.gain.linearRampToValueAtTime(0.16, t + off + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.001, t + off + 0.3);
+    o.connect(g).connect(ac.destination);
+    o.start(t + off); o.stop(t + off + 0.32);
+  });
+}
+function sfxWrong(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'square';
+  o.frequency.setValueAtTime(200, t);
+  o.frequency.exponentialRampToValueAtTime(85, t + 0.26);
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.linearRampToValueAtTime(0.10, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.32);
+}
+function sfxHurt(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'triangle';
+  o.frequency.setValueAtTime(440, t);
+  o.frequency.exponentialRampToValueAtTime(110, t + 0.4);
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.linearRampToValueAtTime(0.14, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.46);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.48);
+}
+function sfxLevelUp(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    const off = i * 0.1;
+    g.gain.setValueAtTime(0.001, t + off);
+    g.gain.linearRampToValueAtTime(0.16, t + off + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.001, t + off + 0.35);
+    o.connect(g).connect(ac.destination);
+    o.start(t + off); o.stop(t + off + 0.38);
+  });
+}
+function sfxGameOver(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  [392, 329.63, 261.63, 196].forEach((freq, i) => {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'triangle'; o.frequency.value = freq;
+    const off = i * 0.17;
+    g.gain.setValueAtTime(0.001, t + off);
+    g.gain.linearRampToValueAtTime(0.14, t + off + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.001, t + off + 0.42);
+    o.connect(g).connect(ac.destination);
+    o.start(t + off); o.stop(t + off + 0.45);
+  });
+}
+function sfxClick(){
+  const ac = getAudio(); if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'sine'; o.frequency.value = 660;
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.linearRampToValueAtTime(0.08, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.12);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.14);
+}
+
+/* =========================================================
+   3. TAB SWITCHING
+   ========================================================= */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+let writeInited = false;
+tabs.forEach(t => {
+  t.addEventListener('click', () => {
+    sfxClick();
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+    if(t.dataset.tab === 'write' && !writeInited){ writeInited = true; setTimeout(setupCanvas, 60); }
+  });
+});
+
+/* =========================================================
+   4. VOCAB FLIP CARDS
+   ========================================================= */
+const vocabGrid = document.getElementById('vocabGrid');
+const searchInput = document.getElementById('searchInput');
+const speedRange = document.getElementById('speedRange');
+const speedVal = document.getElementById('speedVal');
+speedRange.addEventListener('input', () => {
+  speechRate = parseFloat(speedRange.value);
+  speedVal.textContent = speechRate.toFixed(2) + 'x';
+});
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function renderVocab(){
+  const raw = searchInput.value.trim();
+  const f = raw.toLowerCase();
+  vocabGrid.innerHTML = '';
+  const list = WORDS.filter(w => {
+    if(!raw) return true;
+    return w.h.includes(raw) || w.p.toLowerCase().includes(f) || w.m.toLowerCase().includes(f);
+  });
+  if(list.length === 0){
+    vocabGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#a99cb5;padding:40px 0;font-size:15px;">😢 Không tìm thấy từ nào...</div>';
+    return;
+  }
+  list.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'vcard';
+    const exHtml = w.ex.map(e =>
+      '<div class="ex-item">' +
+        '<div class="ex-cn" data-ex="' + esc(e[0]) + '">' + esc(e[0]) + ' <span style="font-size:10px;opacity:.5">🔊</span></div>' +
+        '<div class="ex-vn">' + esc(e[1]) + '</div>' +
+      '</div>'
+    ).join('');
+    card.innerHTML =
+      '<div class="vcard-inner">' +
+        '<div class="vcard-face vcard-front">' +
+          '<div class="vcard-top">' +
+            '<div class="vcard-hanzi">' + esc(w.h) + '</div>' +
+            '<button class="spk" type="button" title="Nghe">🔊</button>' +
+          '</div>' +
+          '<div class="vcard-pinyin">' + esc(w.p) + '</div>' +
+          '<div class="vcard-mean">' + esc(w.m) + '</div>' +
+          '<div class="vcard-hint"><span class="dot"></span>Lật thẻ để xem ví dụ</div>' +
+        '</div>' +
+        '<div class="vcard-face vcard-back">' +
+          '<div class="vcard-back-title"><span>📖 例句 VÍ DỤ</span><span class="back-hint">↩ lật lại</span></div>' +
+          exHtml +
+        '</div>' +
+      '</div>';
+    card.addEventListener('click', e => {
+      if(e.target.closest('.spk')){ e.stopPropagation(); speak(w.h); return; }
+      const exEl = e.target.closest('.ex-cn');
+      if(exEl){ e.stopPropagation(); speak(exEl.dataset.ex, Math.max(0.6, speechRate - 0.1)); return; }
+      card.classList.toggle('flipped');
+    });
+    vocabGrid.appendChild(card);
+  });
+}
+searchInput.addEventListener('input', renderVocab);
+renderVocab();
+
+/* =========================================================
+   5. WRITING PAD
+   ========================================================= */
+const canvas = document.getElementById('writeCanvas');
+const ctx = canvas.getContext('2d');
+const traceChar = document.getElementById('traceChar');
+const charSelect = document.getElementById('charSelect');
+const charChips = document.getElementById('charChips');
+const colorRow = document.getElementById('colorRow');
+let drawing = false, lastX = 0, lastY = 0;
+let brushColor = '#3d3346';
+const brushSize = 7;
+let history = [];
+let traceVisible = true;
+let activeChar = '星';
+WORDS.forEach((w, i) => {
+  const o = document.createElement('option');
+  o.value = i;
+  o.textContent = w.h + '  —  ' + w.p;
+  charSelect.appendChild(o);
+});
+function currentWord(){ return WORDS[parseInt(charSelect.value, 10) || 0]; }
+function buildCharChips(){
+  const w = currentWord();
+  const chars = Array.from(w.h);
+  charChips.innerHTML = '';
+  chars.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'char-chip' + (i === 0 ? ' active' : '');
+    b.textContent = c;
+    b.title = 'Viết chữ: ' + c;
+    b.addEventListener('click', () => {
+      sfxClick();
+      charChips.querySelectorAll('.char-chip').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      activeChar = c;
+      traceChar.textContent = c;
+      clearCanvas(true);
+      speak(c);
+    });
+    charChips.appendChild(b);
+  });
+  activeChar = chars[0];
+  traceChar.textContent = activeChar;
+  clearCanvas(true);
+}
+charSelect.addEventListener('change', () => { buildCharChips(); speak(currentWord().h); });
+document.getElementById('btnSpeakWrite').addEventListener('click', () => speak(currentWord().h));
+document.getElementById('btnRandom').addEventListener('click', () => {
+  sfxClick();
+  const i = Math.floor(Math.random() * WORDS.length);
+  charSelect.value = i;
+  buildCharChips();
+  speak(WORDS[i].h);
+});
+document.getElementById('btnTrace').addEventListener('click', () => {
+  sfxClick();
+  traceVisible = !traceVisible;
+  traceChar.style.opacity = traceVisible ? '1' : '0';
+});
+colorRow.addEventListener('click', e => {
+  const sw = e.target.closest('.swatch');
+  if(!sw) return;
+  colorRow.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  sw.classList.add('active');
+  brushColor = sw.dataset.color;
+  ctx.strokeStyle = brushColor;
+});
+function setupCanvas(){
+  const rect = canvas.getBoundingClientRect();
+  if(rect.width === 0) return;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(rect.width * dpr);
+  canvas.height = Math.round(rect.height * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = brushSize;
+  ctx.strokeStyle = brushColor;
+  history = [];
+  if(charChips.children.length === 0) buildCharChips();
+}
+function pushHistory(){
+  try{ history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); if(history.length > 25) history.shift(); }catch(e){}
+}
+function getPos(e){ const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+canvas.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  if(canvas.setPointerCapture){ try{ canvas.setPointerCapture(e.pointerId); }catch(err){} }
+  drawing = true;
+  const p = getPos(e); lastX = p.x; lastY = p.y;
+  pushHistory();
+  ctx.beginPath(); ctx.arc(p.x, p.y, brushSize / 2, 0, Math.PI * 2);
+  ctx.fillStyle = brushColor; ctx.fill();
+});
+canvas.addEventListener('pointermove', e => {
+  if(!drawing) return;
+  e.preventDefault();
+  const p = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y); ctx.stroke();
+  lastX = p.x; lastY = p.y;
+});
+function endDraw(){ drawing = false; }
+canvas.addEventListener('pointerup', endDraw);
+canvas.addEventListener('pointercancel', endDraw);
+canvas.addEventListener('pointerleave', endDraw);
+function clearCanvas(silent){
+  if(!silent) pushHistory();
+  const r = canvas.getBoundingClientRect();
+  ctx.clearRect(0, 0, r.width, r.height);
+}
+document.getElementById('btnClear').addEventListener('click', () => { sfxClick(); clearCanvas(false); });
+document.getElementById('btnUndo').addEventListener('click', () => {
+  if(history.length === 0) return;
+  sfxClick();
+  const img = history.pop();
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.putImageData(img, 0, 0); ctx.restore();
+});
+window.addEventListener('resize', () => { if(writeInited) setTimeout(setupCanvas, 120); });
+
+/* =========================================================
+   6. GAME (dùng WORDS đã bỏ 几)
+   ========================================================= */
+const playfield = document.getElementById('playfield');
+const pinyinInput = document.getElementById('pinyinInput');
+const fireBtn = document.getElementById('fireBtn');
+const overlay = document.getElementById('overlay');
+const ovTitle = document.getElementById('ovTitle');
+const ovText = document.getElementById('ovText');
+const ovBtn = document.getElementById('ovBtn');
+const hudLevel = document.getElementById('hudLevel');
+const hudLives = document.getElementById('hudLives');
+const hudScore = document.getElementById('hudScore');
+const hudDestroyed = document.getElementById('hudDestroyed');
+const hudTarget = document.getElementById('hudTarget');
+const MAX_LEVEL = 14;
+const game = { running:false, level:1, lives:3, score:0, destroyed:0, target:5, active:[], spawnTimer:0, lastT:0, rafId:null, cfg:null, combo:0 };
+function levelConfig(lv){
+  const i = lv - 1;
+  return {
+    fallTime: Math.max(11.5, 22 - i * 0.68),
+    spawnInterval: Math.max(1900, 4400 - i * 175),
+    maxOnScreen: 2 + Math.floor(i / 4),
+    target: 5 + Math.floor(i * 0.62),
+    lives: 3
+  };
+}
+function updateHUD(){
+  hudLevel.textContent = game.level;
+  hudScore.textContent = game.score;
+  hudDestroyed.textContent = Math.min(game.destroyed, game.cfg ? game.cfg.target : 0);
+  hudTarget.textContent = game.cfg ? game.cfg.target : 5;
+  const total = game.cfg ? game.cfg.lives : 3;
+  hudLives.textContent = '❤️'.repeat(Math.max(0, game.lives)) + '🖤'.repeat(Math.max(0, total - game.lives));
+}
+let overlayAction = null;
+function showOverlay(type){
+  overlay.classList.add('show');
+  if(type === 'start'){
+    ovTitle.textContent = '🚀 Sẵn sàng chưa?';
+    ovText.innerHTML = 'Từ tiếng Trung sẽ rơi xuống (kèm pinyin).<br>Gõ <b>pinyin không dấu</b> rồi nhấn <b>Enter</b> để bắn hạ!<br><br>Đúng → tên lửa bắn trúng &amp; đọc từ đó 💥🔊<br>Sai / để rơi mất → mất 1 mạng ❤️';
+    ovBtn.textContent = 'Bắt đầu ▶';
+    overlayAction = () => startGame();
+  } else if(type === 'levelup'){
+    const next = game.level + 1;
+    ovTitle.textContent = '🎉 Qua màn ' + game.level + '!';
+    ovText.innerHTML = 'Điểm hiện tại: <b>' + game.score + '</b><br>Màn <b>' + next + '</b> sẽ nhanh hơn một chút!';
+    ovBtn.textContent = 'Màn ' + next + ' ▶';
+    overlayAction = () => startLevel(next);
+  } else if(type === 'gameover'){
+    ovTitle.textContent = '💔 Hết mạng rồi!';
+    ovText.innerHTML = 'Bạn dừng ở màn <b>' + game.level + '</b><br>Tổng điểm: <b>' + game.score + '</b><br><br>Cố lên, thử lại nhé!';
+    ovBtn.textContent = 'Chơi lại 🔄';
+    overlayAction = () => startGame();
+  } else if(type === 'win'){
+    ovTitle.textContent = '🏆 Vô địch!';
+    ovText.innerHTML = 'Bạn đã vượt qua cả <b>14 màn</b>!<br>Tổng điểm: <b>' + game.score + '</b><br><br>太厉害了！';
+    ovBtn.textContent = 'Chơi lại 🔄';
+    overlayAction = () => startGame();
+  }
+}
+function hideOverlay(){ overlay.classList.remove('show'); }
+ovBtn.addEventListener('click', () => { getAudio(); if(overlayAction) overlayAction(); });
+function startGame(){ game.score = 0; startLevel(1); }
+function startLevel(lv){
+  game.level = lv;
+  game.cfg = levelConfig(lv);
+  game.lives = game.cfg.lives;
+  game.destroyed = 0;
+  game.combo = 0;
+  game.spawnTimer = 800;
+  game.active.forEach(w => { if(w.el && w.el.parentNode) w.el.remove(); });
+  game.active = [];
+  playfield.querySelectorAll('.falling-word,.rocket,.explosion,.plus-score').forEach(el => el.remove());
+  updateHUD();
+  hideOverlay();
+  pinyinInput.value = '';
+  pinyinInput.classList.remove('bad');
+  game.running = true;
+  game.lastT = performance.now();
+  if(game.rafId) cancelAnimationFrame(game.rafId);
+  game.rafId = requestAnimationFrame(tick);
+  setTimeout(() => { try{ pinyinInput.focus(); }catch(e){} }, 100);
+}
+function spawnWord(){
+  const w = WORDS[Math.floor(Math.random() * WORDS.length)];
+  const el = document.createElement('div');
+  el.className = 'falling-word';
+  el.innerHTML = '<span class="fw-hanzi">' + esc(w.h) + '</span><span class="fw-pinyin">' + esc(w.p) + '</span>';
+  el.style.left = '0px';
+  el.style.top = '-90px';
+  playfield.appendChild(el);
+  const W = playfield.clientWidth;
+  const H = playfield.clientHeight;
+  const ew = el.offsetWidth;
+  const eh = el.offsetHeight;
+  const TRACKS = 3;
+  const trackW = W / TRACKS;
+  const t = Math.floor(Math.random() * TRACKS);
+  let x = t * trackW + (trackW - ew) / 2;
+  if(x < 8) x = 8;
+  if(x + ew > W - 8) x = Math.max(8, W - ew - 8);
+  el.style.left = x + 'px';
+  const speed = (H + eh + 140) / game.cfg.fallTime;
+  const obj = { el, hanzi:w.h, pinyin:w.p, x, y:-90, speed, dead:false };
+  el.style.top = obj.y + 'px';
+  game.active.push(obj);
+}
+function tick(t){
+  if(!game.running) return;
+  let dt = (t - game.lastT) / 1000;
+  game.lastT = t;
+  if(dt > 0.12) dt = 0.12;
+  if(dt < 0) dt = 0;
+  update(dt);
+  if(game.running) game.rafId = requestAnimationFrame(tick);
+}
+function update(dt){
+  const H = playfield.clientHeight;
+  game.spawnTimer -= dt * 1000;
+  if(game.spawnTimer <= 0 && game.active.length < game.cfg.maxOnScreen){
+    spawnWord();
+    game.spawnTimer = game.cfg.spawnInterval;
+  }
+  for(let i = game.active.length - 1; i >= 0; i--){
+    const w = game.active[i];
+    if(w.dead) continue;
+    w.y += w.speed * dt;
+    w.el.style.top = w.y + 'px';
+    if(w.y > H + 30){
+      w.dead = true;
+      if(w.el.parentNode) w.el.remove();
+      game.active.splice(i, 1);
+      loseLife();
+      if(!game.running) return;
+    }
+  }
+}
+function loseLife(){
+  if(!game.running) return;
+  game.lives--;
+  game.combo = 0;
+  updateHUD();
+  sfxHurt();
+  playfield.classList.remove('hurt');
+  void playfield.offsetWidth;
+  playfield.classList.add('hurt');
+  setTimeout(() => playfield.classList.remove('hurt'), 520);
+  if(game.lives <= 0){
+    game.running = false;
+    if(game.rafId) cancelAnimationFrame(game.rafId);
+    setTimeout(() => { sfxGameOver(); showOverlay('gameover'); }, 420);
+  }
+}
+function explode(x, y){
+  const e = document.createElement('div');
+  e.className = 'explosion';
+  e.textContent = '💥';
+  e.style.left = x + 'px';
+  e.style.top = y + 'px';
+  playfield.appendChild(e);
+  setTimeout(() => { if(e.parentNode) e.remove(); }, 580);
+}
+function popScore(x, y, text){
+  const s = document.createElement('div');
+  s.className = 'plus-score';
+  s.textContent = text;
+  s.style.left = x + 'px';
+  s.style.top = y + 'px';
+  playfield.appendChild(s);
+  setTimeout(() => { if(s.parentNode) s.remove(); }, 1000);
+}
+function fireRocket(target){
+  target.dead = true;
+  const idx = game.active.indexOf(target);
+  if(idx >= 0) game.active.splice(idx, 1);
+  const tx = target.x + target.el.offsetWidth / 2;
+  const ty = target.y + target.el.offsetHeight / 2;
+  const word = target.hanzi;
+  const rocket = document.createElement('div');
+  rocket.className = 'rocket';
+  rocket.textContent = '🚀';
+  const startX = playfield.clientWidth / 2;
+  const startY = playfield.clientHeight - 16;
+  rocket.style.left = startX + 'px';
+  rocket.style.top = startY + 'px';
+  playfield.appendChild(rocket);
+  sfxShoot();
+  requestAnimationFrame(() => {
+    rocket.style.transition = 'left .3s cubic-bezier(.4,0,.7,1), top .3s cubic-bezier(.4,0,.7,1)';
+    rocket.style.left = tx + 'px';
+    rocket.style.top = ty + 'px';
+  });
+  setTimeout(() => {
+    if(rocket.parentNode) rocket.remove();
+    explode(tx, ty);
+    sfxExplode();
+    sfxDing();
+    speak(word);
+    if(target.el && target.el.parentNode) target.el.remove();
+  }, 300);
+  game.destroyed++;
+  game.combo++;
+  const gain = 100 + Math.min(game.combo, 10) * 10;
+  game.score += gain;
+  popScore(tx, ty, '+' + gain);
+  updateHUD();
+  if(game.destroyed >= game.cfg.target){
+    game.running = false;
+    if(game.rafId) cancelAnimationFrame(game.rafId);
+    setTimeout(() => {
+      if(game.level >= MAX_LEVEL){ sfxLevelUp(); showOverlay('win'); }
+      else { sfxLevelUp(); showOverlay('levelup'); }
+    }, 600);
+  }
+}
+const TONE_MAP = { 'ā':'a','á':'a','ǎ':'a','à':'a','ē':'e','é':'e','ě':'e','è':'e','ī':'i','í':'i','ǐ':'i','ì':'i','ō':'o','ó':'o','ǒ':'o','ò':'o','ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'u','ǘ':'u','ǚ':'u','ǜ':'u','ü':'u','ń':'n','ň':'n','ḿ':'m' };
+function normPinyin(s){
+  if(!s) return '';
+  let out = '';
+  const low = s.toLowerCase();
+  for(let i = 0; i < low.length; i++){
+    const c = low[i];
+    out += (TONE_MAP[c] !== undefined ? TONE_MAP[c] : c);
+  }
+  return out.replace(/[\s'’\-·0-9]/g, '').replace(/v/g, 'u');
+}
+function submitAnswer(){
+  if(!game.running) return;
+  const raw = pinyinInput.value.trim();
+  if(!raw) return;
+  const val = normPinyin(raw);
+  if(!val) return;
+  let match = null;
+  for(const w of game.active){
+    if(w.dead) continue;
+    if(normPinyin(w.pinyin) === val){
+      if(!match || w.y > match.y) match = w;
+    }
+  }
+  if(match){
+    pinyinInput.value = '';
+    pinyinInput.classList.remove('bad');
+    fireRocket(match);
+  } else {
+    pinyinInput.classList.add('bad');
+    sfxWrong();
+    setTimeout(() => pinyinInput.classList.remove('bad'), 520);
+    loseLife();
+  }
+}
+pinyinInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); submitAnswer(); } });
+fireBtn.addEventListener('click', () => { submitAnswer(); pinyinInput.focus(); });
+playfield.addEventListener('click', () => { if(game.running) pinyinInput.focus(); });
+
+/* =========================================================
+   7. FILL IN THE BLANKS – KHÔNG GỢI Ý ĐÁP ÁN
+   ========================================================= */
+const FILL_WORDS = [
+  {h:'星期', p:'xīngqī'},
+  {h:'几', p:'jǐ'},
+  {h:'昨天', p:'zuótiān'},
+  {h:'今天', p:'jīntiān'},
+  {h:'明天', p:'míngtiān'},
+  {h:'去', p:'qù'},
+  {h:'学校', p:'xuéxiào'},
+  {h:'邮局', p:'yóujú'},
+  {h:'寄', p:'jì'},
+  {h:'信', p:'xìn'},
+  {h:'银行', p:'yínháng'},
+  {h:'取', p:'qǔ'},
+  {h:'钱', p:'qián'},
+  {h:'超市', p:'chāoshì'},
+  {h:'东西', p:'dōngxi'}
+];
+
+function makeFillSelect(answer){
+  let html = '<select class="fill-select" data-answer="' + esc(answer) + '">';
+  html += '<option value="">-- chọn --</option>';
+  FILL_WORDS.forEach(w => {
+    html += `<option value="${esc(w.h)}">${esc(w.h)} (${esc(w.p)})</option>`;
+  });
+  html += '</select>';
+  return html;
+}
+
+function ruby(hanzi, pinyin){
+  return `<ruby>${hanzi}<rt>${pinyin}</rt></ruby>`;
+}
+
+const FILL_DATA = [
+  { parts: [ ruby('今天','jīntiān') + ' ' + makeFillSelect('星期') + ' ' + ruby('几','jǐ') + '？' ]},
+  { parts: [ ruby('今天','jīntiān') + ' ' + makeFillSelect('几') + ' ' + ruby('号','hào') + '？' ]},
+  { parts: [ ruby('我','wǒ') + ' ' + makeFillSelect('去') + ' ' + ruby('学校','xuéxiào') + ruby('学','xué') + ruby('汉语','Hànyǔ') + '。' ]},
+  { parts: [ ruby('我','wǒ') + ' ' + makeFillSelect('去') + ' ' + ruby('邮局','yóujú') + ' ' + makeFillSelect('寄') + ' ' + ruby('信','xìn') + '。' ]},
+  { parts: [ ruby('你','nǐ') + ' ' + makeFillSelect('去') + ' ' + ruby('银行','yínháng') + ' ' + makeFillSelect('取') + ' ' + ruby('钱','qián') + ' ' + ruby('吗','ma') + '？' ]},
+  { parts: [ ruby('我','wǒ') + ' ' + makeFillSelect('去') + ' ' + makeFillSelect('超市') + ' ' + ruby('买','mǎi') + ' ' + makeFillSelect('东西') + '。' ]},
+  { parts: [ ruby('这','zhè') + ' ' + ruby('是','shì') + ' ' + ruby('给','gěi') + ' ' + ruby('朋友','péngyou') + ' ' + ruby('的','de') + ' ' + makeFillSelect('信') + '。' ]},
+  { parts: [ ruby('明天','míngtiān') + ' ' + ruby('你','nǐ') + ' ' + makeFillSelect('去') + ' ' + ruby('哪儿','nǎr') + '？' ]},
+  { parts: [ ruby('我','wǒ') + ' ' + makeFillSelect('昨天') + ' ' + ruby('去','qù') + ' ' + makeFillSelect('学校') + ' ' + ruby('了','le') + '。' ]},
+  { parts: [ ruby('今天','jīntiān') + ' ' + ruby('我','wǒ') + ' ' + makeFillSelect('去') + ' ' + makeFillSelect('银行') + ' ' + ruby('取','qǔ') + ruby('钱','qián') + '。' ]},
+  { parts: [ ruby('我','wǒ') + ' ' + makeFillSelect('去') + ' ' + ruby('邮局','yóujú') + '，' + ruby('你','nǐ') + ' ' + makeFillSelect('去') + ' ' + ruby('哪儿','nǎr') + '？' ]},
+  { parts: [ makeFillSelect('明天') + ' ' + ruby('星期天','xīngqītiān') + '，' + ruby('我','wǒ') + ' ' + ruby('不','bù') + ' ' + ruby('去','qù') + ' ' + ruby('学校','xuéxiào') + '。' ]}
+];
+
+const fillBank = document.getElementById('fillBank');
+const fillList = document.getElementById('fillList');
+const fillScoreEl = document.getElementById('fillScore');
+const fillTotalEl = document.getElementById('fillTotal');
+const fillResult = document.getElementById('fillResult');
+
+let fillBlankCount = 0;
+FILL_DATA.forEach(item => {
+  item.parts.forEach(p => {
+    if(typeof p === 'string' && p.includes('fill-select')) fillBlankCount++;
+  });
+});
+fillTotalEl.textContent = fillBlankCount;
+
+function renderFill(){
+  fillBank.innerHTML = '';
+  FILL_WORDS.forEach(w => {
+    const c = document.createElement('span');
+    c.className = 'bank-chip';
+    c.innerHTML = w.h + ' <span style="font-size:12px;color:#a08fc4;">(' + w.p + ')</span>';
+    fillBank.appendChild(c);
+  });
+
+  fillList.innerHTML = '';
+  FILL_DATA.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'fill-item';
+    div.dataset.idx = idx;
+    let bodyHtml = '<span class="fill-num">' + (idx + 1) + '</span><div class="fill-body">';
+    item.parts.forEach(p => { bodyHtml += p; });
+    bodyHtml += '</div>';
+    div.innerHTML = bodyHtml;
+    fillList.appendChild(div);
+  });
+  fillScoreEl.textContent = '0';
+  fillResult.textContent = '';
+}
+
+function checkFill(){
+  let blanksCorrect = 0;
+  fillList.querySelectorAll('.fill-select').forEach(sel => {
+    const ans = sel.dataset.answer;
+    sel.classList.remove('ok', 'no');
+    if(sel.value === ans){ sel.classList.add('ok'); blanksCorrect++; }
+    else { sel.classList.add('no'); }
+  });
+  fillList.querySelectorAll('.fill-item').forEach(item => {
+    const sels = item.querySelectorAll('.fill-select');
+    let allOk = true;
+    sels.forEach(s => { if(s.value !== s.dataset.answer) allOk = false; });
+    item.classList.remove('correct', 'wrong');
+    item.classList.add(allOk ? 'correct' : 'wrong');
+  });
+  fillScoreEl.textContent = blanksCorrect;
+  const total = fillBlankCount;
+  if(blanksCorrect === total){
+    fillResult.textContent = '🎉 Tuyệt vời! Bạn đã làm đúng hết ' + total + ' chỗ trống!';
+    fillResult.style.color = '#2e8b6f';
+    sfxLevelUp();
+  } else {
+    fillResult.textContent = 'Bạn đúng ' + blanksCorrect + '/' + total + ' chỗ. Cố lên nhé!';
+    fillResult.style.color = '#ff7fa3';
+    sfxWrong();
+  }
+}
+
+document.getElementById('fillCheck').addEventListener('click', () => { sfxClick(); checkFill(); });
+document.getElementById('fillReset').addEventListener('click', () => { sfxClick(); renderFill(); });
+renderFill();
+
+/* =========================================================
+   8. MULTIPLE CHOICE – CÓ PINYIN
+   ========================================================= */
+const MCQ_DATA = [
+  {
+    q: '今天 <span class="py">(jīntiān)</span> ______ 几 <span class="py">(jǐ)</span>？',
+    opts: ['星期 <span class="py">(xīngqī)</span>', '月 <span class="py">(yuè)</span>', '号 <span class="py">(hào)</span>', '年 <span class="py">(nián)</span>'],
+    ans: 0,
+    explain: '今天星期几？= Hôm nay là thứ mấy?'
+  },
+  {
+    q: '一个星期 <span class="py">(yī ge xīngqī)</span> 有 ______ 天 <span class="py">(tiān)</span>。',
+    opts: ['五 <span class="py">(wǔ)</span>', '六 <span class="py">(liù)</span>', '七 <span class="py">(qī)</span>', '八 <span class="py">(bā)</span>'],
+    ans: 2,
+    explain: '一个星期有七天。= Một tuần có bảy ngày.'
+  },
+  {
+    q: '我 <span class="py">(wǒ)</span> 去 <span class="py">(qù)</span> 邮局 <span class="py">(yóujú)</span> ______ 信 <span class="py">(xìn)</span>。',
+    opts: ['取 <span class="py">(qǔ)</span>', '买 <span class="py">(mǎi)</span>', '寄 <span class="py">(jì)</span>', '见 <span class="py">(jiàn)</span>'],
+    ans: 2,
+    explain: '寄信 = gửi thư'
+  },
+  {
+    q: '我 <span class="py">(wǒ)</span> 去 <span class="py">(qù)</span> 银行 <span class="py">(yínháng)</span> ______ 钱 <span class="py">(qián)</span>。',
+    opts: ['寄 <span class="py">(jì)</span>', '取 <span class="py">(qǔ)</span>', '买 <span class="py">(mǎi)</span>', '学 <span class="py">(xué)</span>'],
+    ans: 1,
+    explain: '取钱 = rút tiền'
+  },
+  {
+    q: '我 <span class="py">(wǒ)</span> 去 <span class="py">(qù)</span> 超市 <span class="py">(chāoshì)</span> ______ 东西 <span class="py">(dōngxi)</span>。',
+    opts: ['买 <span class="py">(mǎi)</span>', '寄 <span class="py">(jì)</span>', '取 <span class="py">(qǔ)</span>', '回 <span class="py">(huí)</span>'],
+    ans: 0,
+    explain: '买东西 = mua đồ'
+  },
+  {
+    q: '"你去哪儿？" <span class="py">(nǐ qù nǎr?)</span> 意思是：',
+    opts: ['Bạn làm gì?', 'Bạn đi đâu?', 'Bạn là ai?', 'Bạn học gì?'],
+    ans: 1,
+    explain: '你去哪儿？= Bạn đi đâu?'
+  },
+  {
+    q: '明天 <span class="py">(míngtiān)</span> ______ 星期天 <span class="py">(xīngqītiān)</span>。',
+    opts: ['是 <span class="py">(shì)</span>', '有 <span class="py">(yǒu)</span>', '在 <span class="py">(zài)</span>', '去 <span class="py">(qù)</span>'],
+    ans: 0,
+    explain: '明天是星期天。= Ngày mai là chủ nhật.'
+  },
+  {
+    q: '下面哪个词语表示 "hôm qua"？',
+    opts: ['今天 <span class="py">(jīntiān)</span>', '明天 <span class="py">(míngtiān)</span>', '昨天 <span class="py">(zuótiān)</span>', '星期天 <span class="py">(xīngqītiān)</span>'],
+    ans: 2,
+    explain: '昨天 = hôm qua'
+  },
+  {
+    q: '他 <span class="py">(tā)</span> 学 <span class="py">(xué)</span> 英语 <span class="py">(Yīngyǔ)</span> ______？',
+    opts: ['吗 <span class="py">(ma)</span>', '呢 <span class="py">(ne)</span>', '吧 <span class="py">(ba)</span>', '啊 <span class="py">(a)</span>'],
+    ans: 0,
+    explain: '他学英语吗？= Anh ấy học tiếng Anh không?'
+  },
+  {
+    q: '汉语中心 <span class="py">(Hànyǔ zhōngxīn)</span> ______ 哪儿 <span class="py">(nǎr)</span>？',
+    opts: ['在 <span class="py">(zài)</span>', '去 <span class="py">(qù)</span>', '有 <span class="py">(yǒu)</span>', '是 <span class="py">(shì)</span>'],
+    ans: 0,
+    explain: '汉语中心在哪儿？= Trung tâm tiếng Trung ở đâu?'
+  }
+];
+
+const mcqList = document.getElementById('mcqList');
+const mcqScoreEl = document.getElementById('mcqScore');
+const mcqTotalEl = document.getElementById('mcqTotal');
+const mcqResult = document.getElementById('mcqResult');
+mcqTotalEl.textContent = MCQ_DATA.length;
+let mcqAnswered = {};
+
+function renderMcq(){
+  mcqList.innerHTML = '';
+  mcqAnswered = {};
+  mcqScoreEl.textContent = '0';
+  mcqResult.textContent = '';
+  MCQ_DATA.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'mc-item';
+    div.dataset.idx = idx;
+    let qHtml = '<div class="mc-q"><b>' + (idx + 1) + '.</b> ' + item.q.replace(/______/g, '<span class="blank">?</span>') + '</div>';
+    let optsHtml = '<div class="mc-options">';
+    const letters = ['A', 'B', 'C', 'D'];
+    item.opts.forEach((opt, i) => {
+      optsHtml += '<button type="button" class="mc-option" data-idx="' + idx + '" data-val="' + i + '"><b>' + letters[i] + '.</b> ' + opt + '</button>';
+    });
+    optsHtml += '</div>';
+    div.innerHTML = qHtml + optsHtml;
+    mcqList.appendChild(div);
+  });
+  mcqList.querySelectorAll('.mc-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx, 10);
+      const val = parseInt(btn.dataset.val, 10);
+      answerMcq(idx, val);
+    });
+  });
+}
+function answerMcq(idx, val){
+  if(mcqAnswered[idx] !== undefined) return;
+  mcqAnswered[idx] = val;
+  const item = MCQ_DATA[idx];
+  const itemEl = mcqList.querySelector('.mc-item[data-idx="' + idx + '"]');
+  const allOpts = itemEl.querySelectorAll('.mc-option');
+  allOpts.forEach(o => {
+    o.disabled = true;
+    const ov = parseInt(o.dataset.val, 10);
+    if(ov === item.ans){ o.classList.add('ok'); }
+    else if(ov === val && val !== item.ans){ o.classList.add('no'); }
+    else { o.classList.add('dim'); }
+  });
+  if(val === item.ans){ itemEl.classList.add('correct'); sfxDing(); }
+  else { itemEl.classList.add('wrong'); sfxWrong(); }
+  let correct = 0;
+  Object.keys(mcqAnswered).forEach(k => { if(mcqAnswered[k] === MCQ_DATA[k].ans) correct++; });
+  mcqScoreEl.textContent = correct;
+  if(Object.keys(mcqAnswered).length === MCQ_DATA.length){
+    if(correct === MCQ_DATA.length){
+      mcqResult.textContent = '🏆 Xuất sắc! Bạn trả lời đúng tất cả ' + MCQ_DATA.length + ' câu!';
+      mcqResult.style.color = '#2e8b6f';
+      sfxLevelUp();
+    } else {
+      mcqResult.textContent = 'Bạn đúng ' + correct + '/' + MCQ_DATA.length + ' câu. Xem lại nhé!';
+      mcqResult.style.color = '#ff7fa3';
+    }
+  }
+}
+document.getElementById('mcqReset').addEventListener('click', () => { sfxClick(); renderMcq(); });
+renderMcq();
+
+/* khởi động */
+showOverlay('start');
+updateHUD();
+</script>
+</body>
+</html>
