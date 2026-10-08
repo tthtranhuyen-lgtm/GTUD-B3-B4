@@ -600,7 +600,7 @@ select#charSelect:focus{border-color:#c9b6ff;}
 
 <script>
 /* =========================================================
-   1. DỮ LIỆU TỪ VỰNG — ĐÃ BỎ CHỮ 几
+   1. DỮ LIỆU TỪ VỰNG (đã bỏ chữ 几)
    ========================================================= */
 const WORDS = [
   {h:'昨天', p:'zuótiān', m:'hôm qua', ex:[
@@ -809,7 +809,7 @@ const WORDS = [
 ];
 
 /* =========================================================
-   2. ÂM THANH
+   2. ÂM THANH – CHỈ DÙNG GIỌNG PHỔ THÔNG (LOẠI QUẢNG ĐÔNG)
    ========================================================= */
 let speechRate = 0.85;
 let zhVoice = null;
@@ -857,6 +857,35 @@ function pickVoice(){
 
   zhVoice = null;
 }
+if('speechSynthesis' in window){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+  setTimeout(pickVoice, 400);
+  setTimeout(pickVoice, 1200);
+}
+
+function speak(text, rateOverride){
+  if(!('speechSynthesis' in window)) return;
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN';
+    u.rate = rateOverride || speechRate;
+    u.pitch = 1.15;
+    u.volume = 1;
+
+    // Chỉ gán voice nếu nó còn trong danh sách hiện tại
+    // (tránh lỗi voice "stale" khiến Chrome im lặng)
+    if(zhVoice){
+      const current = window.speechSynthesis.getVoices() || [];
+      if(current.some(v => v.voiceURI === zhVoice.voiceURI)){
+        u.voice = zhVoice;
+      }
+    }
+    window.speechSynthesis.speak(u);
+  }catch(e){ console.warn('TTS error:', e); }
+}
+
 /* ---- Web Audio SFX ---- */
 let audioCtx = null;
 function getAudio(){
@@ -1174,7 +1203,7 @@ document.getElementById('btnUndo').addEventListener('click', () => {
 window.addEventListener('resize', () => { if(writeInited) setTimeout(setupCanvas, 120); });
 
 /* =========================================================
-   6. GAME (dùng WORDS đã bỏ 几)
+   6. GAME
    ========================================================= */
 const playfield = document.getElementById('playfield');
 const pinyinInput = document.getElementById('pinyinInput');
@@ -1429,7 +1458,7 @@ fireBtn.addEventListener('click', () => { submitAnswer(); pinyinInput.focus(); }
 playfield.addEventListener('click', () => { if(game.running) pinyinInput.focus(); });
 
 /* =========================================================
-   7. FILL IN THE BLANKS – KHÔNG GỢI Ý ĐÁP ÁN
+   7. FILL IN THE BLANKS
    ========================================================= */
 const FILL_WORDS = [
   {h:'星期', p:'xīngqī'},
@@ -1549,7 +1578,7 @@ document.getElementById('fillReset').addEventListener('click', () => { sfxClick(
 renderFill();
 
 /* =========================================================
-   8. MULTIPLE CHOICE – CÓ PINYIN
+   8. MULTIPLE CHOICE
    ========================================================= */
 const MCQ_DATA = [
   {
