@@ -817,35 +817,54 @@ let zhVoice = null;
 function pickVoice(){
   if(!('speechSynthesis' in window)) return;
   const vs = window.speechSynthesis.getVoices() || [];
-  const prefer = [
-    'Ting-Ting', 'Mei-Jia', 'Sinji', 'Yaoyao', 'Google 普通话',
-    'Microsoft Huihui', 'Microsoft Yaoyao', 'Chinese', 'zh-CN', 'zh_CN'
-  ];
-  for (const key of prefer) {
-    const found = vs.find(v => v.name.includes(key));
-    if (found) { zhVoice = found; return; }
-  }
-  zhVoice = vs.find(v => /zh[-_]?CN/i.test(v.lang)) || vs.find(v => /zh/i.test(v.lang)) || null;
-}
-if('speechSynthesis' in window){
-  pickVoice();
-  window.speechSynthesis.onvoiceschanged = pickVoice;
-  setTimeout(pickVoice, 400);
-  setTimeout(pickVoice, 1200);
-}
 
-function speak(text, rateOverride){
-  if(!('speechSynthesis' in window)) return;
-  try{
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'zh-CN';
-    u.rate = rateOverride || speechRate;
-    u.pitch = 1.15;
-    u.volume = 1;
-    if(zhVoice) u.voice = zhVoice;
-    window.speechSynthesis.speak(u);
-  }catch(e){}
+  // Danh sách đen: các giọng Quảng Đông / Hồng Kông / Đài Loan cần tránh
+  // (Sinji = Cantonese trên macOS, zue = Cantonese, zh-HK/zh-TW = giọng địa phương)
+  const BLACKLIST = [
+    'sinji', 'cantonese', 'yue',
+    'zh-hk', 'zh_hk', 'zh-tw', 'zh_tw',
+    'hong kong', 'taiwan',
+    'chinese (hong kong)', 'chinese (taiwan)'
+  ];
+
+  // Lọc: CHỈ giữ các giọng có lang bắt đầu bằng zh-CN / zh_CN (phổ thông)
+  const mandarin = vs.filter(v => {
+    const lang = (v.lang || '').toLowerCase().replace('_', '-');
+    const name = (v.name || '').toLowerCase();
+
+    // Loại bỏ nếu rơi vào blacklist
+    for (const bw of BLACKLIST){
+      if (lang.includes(bw) || name.includes(bw)) return false;
+    }
+    // Chỉ nhận giọng phổ thông Trung Quốc đại lục
+    return lang === 'zh-cn' || lang.startsWith('zh-cn');
+  });
+
+  // Ưu tiên giọng phổ thông chất lượng cao (KHÔNG có Sinji nữa)
+  const PREFER = [
+    'Ting-Ting',              // macOS / iOS Mandarin
+    'Mei-Jia',                // macOS / iOS Mandarin (Đài Loan, vẫn là phổ thông)
+    'Yaoyao',                 // Microsoft Windows Mandarin
+    'Huihui',                 // Microsoft Windows Mandarin
+    'Google 普通话',           // Chrome / Android Mandarin
+    'Google Mandarin',
+    'Microsoft Huihui',
+    'Microsoft Yaoyao'
+  ];
+
+  for (const key of PREFER){
+    const found = mandarin.find(v => v.name.includes(key));
+    if (found){ zhVoice = found; return; }
+  }
+
+  // Nếu không có giọng ưu tiên, dùng bất kỳ giọng phổ thông nào
+  if (mandarin.length > 0){
+    zhVoice = mandarin[0];
+    return;
+  }
+
+  // Fallback cuối: KHÔNG dùng /zh/i vì dễ bắt Cantonese — chỉ nhận zh-CN rõ ràng
+  zhVoice = vs.find(v => /^zh[-_]?cn/i.test(v.lang)) || null;
 }
 
 /* ---- Web Audio SFX ---- */
